@@ -3,6 +3,7 @@ using Caching_.NET.DB;
 using Caching_.NET.Interfaces;
 using Caching_.NET.Repository;
 using Microsoft.EntityFrameworkCore;
+using Ninject.Activation.Caching;
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
@@ -18,6 +19,12 @@ builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration["RedisCacheOptions:Configuration"];
     options.InstanceName = builder.Configuration["RedisCacheoptions:InstanceName"];
+});
+builder.Services.AddSingleton<ICache>(provider =>
+{
+    var cacheName = builder.Configuration.GetValue<string>("NCacheSettings:CacheName");
+    ICache cache=CacheManager.GetCache(cacheName);
+    return cache;
 });
 var app = builder.Build();
 // Configure the HTTP request pipeline.
