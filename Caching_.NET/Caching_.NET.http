@@ -1,0 +1,6 @@
+@Caching_.NET_HostAddress = http://localhost:5101
+
+GET {{Caching_.NET_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
