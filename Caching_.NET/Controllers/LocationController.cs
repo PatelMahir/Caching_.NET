@@ -3,6 +3,7 @@ using Caching_.NET.Interfaces;
 using Caching_.NET.Models;
 using Caching_.NET.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 namespace Caching_.NET.Controllers
 {
     [Route("api/[controller]")]
@@ -13,6 +14,7 @@ namespace Caching_.NET.Controllers
         //private readonly ApplicationDbContext _context;
         //private readonly IMemoryCache _cache;
         private readonly ICustomCache _cache;
+        private readonly IDistributedCache cache;
         public LocationController(LocationRepository repository, ICustomCache cache)//,ApplicationDbContext context,IMemoryCache cache,)
         {
             _repository = repository;
